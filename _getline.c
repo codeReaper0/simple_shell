@@ -1,11 +1,11 @@
-#include "shell.h"
+#include "main.h"
 
 /**
-* _getline - read one line from the prompt.
-* @data: struct for the program's data
-*
-* Return: reading counting bytes.
-*/
+ * _getline - read one line from the prompt.
+ * @data: struct for the program's data
+ *
+ * Return: reading counting bytes.
+ */
 int _getline(data_of_program *data)
 {
 	char buff[BUFFER_SIZE] = {'\0'};
@@ -32,7 +32,8 @@ int _getline(data_of_program *data)
 
 		/* split lines for \n or ; */
 		i = 0;
-		do {
+		do
+		{
 			array_commands[i] = str_duplicate(_strtok(i ? NULL : buff, "\n;"));
 			/*checks and split for && and || operators*/
 			i = check_logic_ops(array_commands, i, array_operators);
@@ -50,22 +51,21 @@ int _getline(data_of_program *data)
 	return (str_length(data->input_line));
 }
 
-
 /**
-* check_logic_ops - checks and split for && and || operators
-* @array_commands: array of the commands.
-* @i: index in the array_commands to be checked
-* @array_operators: array of the logical operators for each previous command
-*
-* Return: index of the last command in the array_commands.
-*/
+ * check_logic_ops - checks and split for && and || operators
+ * @array_commands: array of the commands.
+ * @i: index in the array_commands to be checked
+ * @array_operators: array of the logical operators for each previous command
+ *
+ * Return: index of the last command in the array_commands.
+ */
 int check_logic_ops(char *array_commands[], int i, char array_operators[])
 {
 	char *temp = NULL;
 	int j;
 
 	/* checks for the & char in the command line*/
-	for (j = 0; array_commands[i] != NULL  && array_commands[i][j]; j++)
+	for (j = 0; array_commands[i] != NULL && array_commands[i][j]; j++)
 	{
 		if (array_commands[i][j] == '&' && array_commands[i][j + 1] == '&')
 		{
